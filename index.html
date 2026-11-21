@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">mParivahan — Digital Transport Companion & App Portal</title>
+  
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Configuration & Dynamic Theme Variables -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: 'var(--brand-primary, #1d4ed8)',
+              600: 'var(--brand-primary-dark, #1e40af)',
+              700: '#1e3a8a',
+              900: '#0f172a',
+            }
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-14px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --brand-primary: #1d4ed8;
+      --brand-primary-dark: #1e3a8a;
+      --brand-accent: #f97316;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* Subtle Indian Tricolor Accent Bar */
+    .tricolor-strip {
+      background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+    }
+
+    /* Glassmorphism Utilities */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .glass-dark {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Hero Mesh Gradient */
+    .hero-bg {
+      background-color: #0b193c;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(37, 99, 235, 0.45) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(249, 115, 22, 0.22) 0px, transparent 45%),
+        radial-gradient(at 75% 85%, rgba(16, 185, 129, 0.2) 0px, transparent 50%);
+    }
+
+    /* Custom Scrollbar for Admin Drawer */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- =====================================================================
+       APP CONFIGURATION STATE (EDITABLE VIA ADMIN PANEL OR DIRECTLY HERE)
+  ====================================================================== -->
+  <script id="app-config-script">
+    window.APP_CONFIG = {
+      appName: "NextGen mParivahan",
+      badgeText: "Official Vahan & Sarathi Digital Portal",
+      heroHeadline: "Your Digital Transport Companion",
+      heroSubheadline: "Carry legally valid Virtual RC & Driving License on your smartphone, check real-time vehicle details, pay e-Challans instantly, and access citizen transport services anywhere in India.",
+      version: "v4.2.8 (Latest Build)",
+      fileSize: "28.4 MB",
+      androidReq: "Android 8.0+",
+      apkDownloadUrl: "https://example.com/downloads/mParivahan-v4.2.8.apk",
+      playStoreUrl: "https://play.google.com/store/apps/details?id=com.nic.mparivahan",
+      appStoreUrl: "https://apps.apple.com/in/app/nextgen-mparivahan/id1450914131",
+      announcementText: "🚀 New Update Live: Instant e-Challan Lok Adalat status & Digilocker Virtual RC sync enabled!",
+      primaryColor: "#1d4ed8",
+      footerDisclaimer: "Disclaimer: This hosting portal provides verified direct installation packages and information for digital transport services. Virtual RC and Virtual DL are legally valid under the IT Act 2000 & Motor Vehicles Act."
+    };
+  </script>
+
+  <!-- Top Tricolor Accent Line -->
+  <div class="h-1.5 w-full tricolor-strip fixed top-0 left-0 z-50"></div>
+
+  <!-- Announcement Banner -->
+  <div id="announcement-bar" class="bg-slate-900 text-white text-xs sm:text-sm py-2 px-4 text-center mt-1.5 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span id="ui-announcement" class="font-medium tracking-wide text-slate-200">
+        🚀 New Update Live: Instant e-Challan Lok Adalat status & Digilocker Virtual RC sync enabled!
+      </span>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       NAVIGATION BAR
+  ====================================================================== -->
+  <header class="sticky top-1.5 z-40 glass-card border-b border-slate-200/80 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 sm:h-20">
+        
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div id="brand-logo-box" class="w-11 h-11 rounded-2xl bg-blue-700 text-white flex items-center justify-center shadow-lg shadow-blue-700/25 group-hover:scale-105 transition-transform">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+              <circle cx="7" cy="17" r="2"/>
+              <path d="M9 17h6"/>
+              <circle cx="17" cy="17" r="2"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="ui-app-name" class="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900">NextGen mParivahan</span>
+              <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 rounded-full">Verified</span>
+            </div>
+            <p class="text-[11px] font-medium text-slate-500">Vahan & Sarathi Citizen App Hub</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <a href="#virtual-docs" class="hover:text-blue-700 transition-colors">Virtual RC & DL</a>
+          <a href="#features" class="hover:text-blue-700 transition-colors">Key Services</a>
+          <a href="#download-section" class="hover:text-blue-700 transition-colors">App Releases</a>
+          <button onclick="toggleAdminDrawer()" class="inline-flex items-center gap-1.5 text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-3 py-1.5 rounded-xl transition-all">
+            <i data-lucide="sliders" class="w-4 h-4"></i>
+            <span>Customize Site</span>
+          </button>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="toggleAdminDrawer()" class="md:hidden p-2.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-200" title="Customize App Portal">
+            <i data-lucide="sliders" class="w-5 h-5"></i>
+          </button>
+          <a href="#download-section" id="nav-cta-btn" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-semibold text-sm shadow-md shadow-blue-700/20 transition-all active:scale-95">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>Get App</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       HERO SECTION
+  ====================================================================== -->
+  <section class="hero-bg text-white relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+    <!-- Decorative Grid Overlay -->
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 28px 28px;"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Content Column -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-xs sm:text-sm font-medium text-blue-200">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+            <span id="ui-badge-text">Official Vahan & Sarathi Digital Portal</span>
+          </div>
+
+          <h1 id="ui-hero-headline" class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.12]">
+            Your Digital Transport Companion
+          </h1>
+
+          <p id="ui-hero-subheadline" class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Carry legally valid Virtual RC & Driving License on your smartphone, check real-time vehicle details, pay e-Challans instantly, and access citizen transport services anywhere in India.
+          </p>
+
+          <!-- Download Action Cards -->
+          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <!-- Direct APK Download Button -->
+            <button onclick="triggerApkDownload()" id="hero-apk-btn" class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-bold shadow-xl shadow-orange-500/25 transition-all transform hover:-translate-y-0.5 active:scale-95">
+              <div class="p-2 bg-white/20 rounded-xl">
+                <i data-lucide="smartphone" class="w-6 h-6"></i>
+              </div>
+              <div class="text-left">
+                <div class="text-[11px] uppercase tracking-wider font-semibold text-orange-100">Direct Host Download</div>
+                <div class="text-base leading-tight">Download APK (<span id="ui-file-size">28.4 MB</span>)</div>
+              </div>
+            </button>
+
+            <!-- Google Play Store Link -->
+            <a id="ui-playstore-link" href="https://play.google.com/store/apps/details?id=com.nic.mparivahan" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-4 rounded-2xl glass-dark hover:bg-white/15 text-white font-semibold transition-all transform hover:-translate-y-0.5">
+              <svg class="w-6 h-6 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+              </svg>
+              <div class="text-left">
+                <div class="text-[11px] text-slate-400">Get it on</div>
+                <div class="text-base leading-tight">Google Play</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Build Metadata Pills -->
+          <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs sm:text-sm text-slate-300">
+            <span class="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+              <i data-lucide="tag" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span id="ui-version">v4.2.8 (Latest Build)</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+              <i data-lucide="cpu" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span id="ui-android-req">Android 8.0+</span>
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>100% Virus & Malware Scanned</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Column: Floating Smartphone Mockup -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-[300px] sm:w-[330px] animate-float">
+            <!-- Glow behind phone -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-blue-600/40 via-emerald-500/30 to-orange-500/40 rounded-[3rem] blur-2xl"></div>
+            
+            <!-- Phone Bezel -->
+            <div class="relative bg-slate-950 rounded-[2.75rem] p-3 border-[4px] border-slate-700/80 shadow-2xl">
+              <!-- Speaker Notch -->
+              <div class="w-28 h-5 bg-slate-950 rounded-b-2xl mx-auto absolute top-3 left-1/2 -translate-x-1/2 z-20 flex items-center justify-center">
+                <div class="w-10 h-1 bg-slate-800 rounded-full"></div>
+              </div>
+
+              <!-- Phone Screen -->
+              <div class="bg-slate-50 rounded-[2.1rem] overflow-hidden text-slate-900 pt-8 pb-5 px-4 space-y-4">
+                <!-- App Top Bar -->
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-[10px] font-bold uppercase tracking-wider text-blue-700">Ministry of Road Transport</p>
+                    <h3 class="font-display font-bold text-base text-slate-900">My Virtual Wallet</h3>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+                    IN
+                  </div>
+                </div>
+
+                <!-- Virtual RC Card inside Phone -->
+                <div class="rounded-2xl bg-gradient-to-br from-blue-800 via-blue-700 to-indigo-900 text-white p-4 shadow-lg relative overflow-hidden">
+                  <div class="flex justify-between items-start mb-3">
+                    <div>
+                      <span class="text-[10px] uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded font-semibold">Virtual RC</span>
+                      <h4 class="font-display font-extrabold text-lg tracking-wider mt-1">BR 01 AB 2026</h4>
+                    </div>
+                    <!-- Mini QR Graphic -->
+                    <div class="bg-white p-1.5 rounded-lg">
+                      <svg class="w-8 h-8 text-slate-900" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm3 3h3v3h-3v-3zm-3 3h2v2h-2v-2zm3 2h3v1h-3v-1z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-[11px] text-blue-100 border-t border-white/15 pt-2.5">
+                    <div>
+                      <span class="block text-[9px] text-blue-300 uppercase">Owner Name</span>
+                      <span class="font-semibold text-white">AARAV SHARMA</span>
+                    </div>
+                    <div>
+                      <span class="block text-[9px] text-blue-300 uppercase">Status</span>
+                      <span class="font-semibold text-emerald-300">● ACTIVE (BS-VI)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick Action Grid inside Phone -->
+                <div class="grid grid-cols-3 gap-2 text-center">
+                  <div class="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-sm">
+                    <div class="w-7 h-7 mx-auto mb-1 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center">
+                      <i data-lucide="file-text" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700">e-Challan</span>
+                  </div>
+                  <div class="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-sm">
+                    <div class="w-7 h-7 mx-auto mb-1 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                      <i data-lucide="badge-check" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700">Virtual DL</span>
+                  </div>
+                  <div class="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-sm">
+                    <div class="w-7 h-7 mx-auto mb-1 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center">
+                      <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700">Near RTO</span>
+                  </div>
+                </div>
+
+                <!-- Bottom Legal Note -->
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 flex items-center gap-2">
+                  <i data-lucide="shield" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                  <p class="text-[10px] text-emerald-800 font-medium leading-tight">
+                    Accepted by Traffic Police across all Indian States & UTs.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       TRUST & STATS STRIP
+  ====================================================================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 sm:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      <div class="space-y-1">
+        <div class="font-display font-extrabold text-2xl sm:text-3xl text-blue-700">12 Cr+</div>
+        <div class="text-xs sm:text-sm font-medium text-slate-500">Active Citizen Downloads</div>
+      </div>
+      <div class="space-y-1">
+        <div class="font-display font-extrabold text-2xl sm:text-3xl text-emerald-600">100% Legal</div>
+        <div class="text-xs sm:text-sm font-medium text-slate-500">Valid Under MV Act 1988</div>
+      </div>
+      <div class="space-y-1">
+        <div class="font-display font-extrabold text-2xl sm:text-3xl text-orange-500">36 States/UT</div>
+        <div class="text-xs sm:text-sm font-medium text-slate-500">Pan-India RTO Integration</div>
+      </div>
+      <div class="space-y-1">
+        <div class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">4.6 ★</div>
+        <div class="text-xs sm:text-sm font-medium text-slate-500">Citizen Satisfaction Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       INTERACTIVE VIRTUAL RC / DL & CHALLAN SIMULATOR SECTION
+  ====================================================================== -->
+  <section id="virtual-docs" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+      <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider">Interactive Preview</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900">Experience Virtual Documents & Live Search</h2>
+      <p class="text-slate-600 text-sm sm:text-base">
+        Test how mParivahan generates encrypted QR-backed digital documents and lets you verify any vehicle registration or pending e-Challan in seconds.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left: Interactive Virtual Document Switcher -->
+      <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/80 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h3 class="font-display font-bold text-lg text-slate-900">Digital Wallet Preview</h3>
+          <!-- Toggle Pills -->
+          <div class="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200">
+            <button id="tab-rc" onclick="switchDocTab('rc')" class="px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-700 text-white shadow-sm transition-all">
+              Virtual RC
+            </button>
+            <button id="tab-dl" onclick="switchDocTab('dl')" class="px-4 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all">
+              Virtual DL
+            </button>
+          </div>
+        </div>
+
+        <!-- Virtual RC View -->
+        <div id="doc-view-rc" class="rounded-2xl bg-gradient-to-br from-slate-900 via-blue-950 to-blue-900 text-white p-6 shadow-xl space-y-5 relative overflow-hidden">
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-bold uppercase">Verified RC</span>
+                <span class="text-xs text-blue-200">Vahan 4.0</span>
+              </div>
+              <h4 class="font-display font-extrabold text-2xl tracking-wider mt-2">BR 01 EQ 4590</h4>
+              <p class="text-xs text-blue-300">TATA NEXON XZ+ (PETROL / BS-VI)</p>
+            </div>
+            <div class="bg-white p-2 rounded-xl shadow-md">
+              <svg class="w-14 h-14 text-slate-900" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm3 3h3v3h-3v-3zm-3 3h2v2h-2v-2zm3 2h3v1h-3v-1z"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-white/15 text-xs">
+            <div>
+              <span class="text-blue-300 block text-[10px] uppercase">Owner Name</span>
+              <span class="font-semibold">ROHIT KUMAR VERMA</span>
+            </div>
+            <div>
+              <span class="text-blue-300 block text-[10px] uppercase">Registration Date</span>
+              <span class="font-semibold">14-Aug-2023</span>
+            </div>
+            <div>
+              <span class="text-blue-300 block text-[10px] uppercase">Fitness Valid Upto</span>
+              <span class="font-semibold text-emerald-300">13-Aug-2038</span>
+            </div>
+            <div>
+              <span class="text-blue-300 block text-[10px] uppercase">Insurance Upto</span>
+              <span class="font-semibold text-emerald-300">12-Aug-2027</span>
+            </div>
+            <div>
+              <span class="text-blue-300 block text-[10px] uppercase">PUCC Valid Upto</span>
+              <span class="font-semibold text-amber-300">20-Feb-2027</span>
+            </div>
+            <div>
+              <span class="text-blue-300 block text-[10px] uppercase">Registering Authority</span>
+              <span class="font-semibold">DTO PATNA, BIHAR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Virtual DL View (Hidden by default) -->
+        <div id="doc-view-dl" class="hidden rounded-2xl bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900 text-white p-6 shadow-xl space-y-5 relative overflow-hidden">
+          <div class="flex justify-between items-start">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[10px] font-bold uppercase">Digital Driving License</span>
+                <span class="text-xs text-teal-200">Sarathi 4.0</span>
+              </div>
+              <h4 class="font-display font-extrabold text-xl sm:text-2xl tracking-wider mt-2">BR01 20210048912</h4>
+              <p class="text-xs text-teal-300">ROHIT KUMAR VERMA • Blood Group: O+</p>
+            </div>
+            <div class="bg-white p-2 rounded-xl shadow-md">
+              <svg class="w-14 h-14 text-slate-900" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v3h-2v-3zm3 3h3v3h-3v-3zm-3 3h2v2h-2v-2zm3 2h3v1h-3v-1z"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-white/15 text-xs">
+            <div>
+              <span class="text-teal-300 block text-[10px] uppercase">Vehicle Class</span>
+              <span class="font-semibold">MCWG, LMV</span>
+            </div>
+            <div>
+              <span class="text-teal-300 block text-[10px] uppercase">Issue Date</span>
+              <span class="font-semibold">19-Mar-2021</span>
+            </div>
+            <div>
+              <span class="text-teal-300 block text-[10px] uppercase">Valid Upto (NT)</span>
+              <span class="font-semibold text-emerald-300">18-Mar-2041</span>
+            </div>
+            <div>
+              <span class="text-teal-300 block text-[10px] uppercase">DL Status</span>
+              <span class="font-semibold text-emerald-300">ACTIVE</span>
+            </div>
+            <div class="col-span-2">
+              <span class="text-teal-300 block text-[10px] uppercase">Licensing Authority</span>
+              <span class="font-semibold">RTO PATNA, BIHAR</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-xs text-slate-500 flex items-center gap-2">
+          <i data-lucide="info" class="w-4 h-4 text-blue-600 shrink-0"></i>
+          <span>Sample preview shown. Install the app to link your own RC & DL using Chassis/Engine last 5 digits.</span>
+        </p>
+      </div>
+
+      <!-- Right: Simulated Quick RC / Challan Lookup Widget -->
+      <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200/80 space-y-6">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-orange-600">Live Demo Tool</span>
+          <h3 class="font-display font-bold text-xl text-slate-900 mt-1">Quick Vehicle & e-Challan Check</h3>
+          <p class="text-sm text-slate-500 mt-1">Enter any vehicle registration number below to preview instant Vahan status lookup.</p>
+        </div>
+
+        <form onsubmit="handleVehicleSearch(event)" class="space-y-4">
+          <div class="flex flex-col sm:flex-row gap-3">
+            <div class="relative flex-1">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                <span class="text-xs font-extrabold bg-blue-900 text-white px-1.5 py-0.5 rounded">IND</span>
+              </div>
+              <input 
+                type="text" 
+                id="vehicle-input" 
+                placeholder="e.g. DL01CA1234 or BR01AB2026" 
+                class="w-full pl-14 pr-4 py-3.5 rounded-2xl border-2 border-slate-200 focus:border-blue-600 focus:outline-none font-display font-bold uppercase tracking-wider text-slate-900 placeholder:font-sans placeholder:font-normal placeholder:tracking-normal"
+                required
+              />
+            </div>
+            <button type="submit" class="px-6 py-3.5 rounded-2xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 shrink-0">
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span>Check Status</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Simulated Result Box -->
+        <div id="search-result-box" class="rounded-2xl bg-slate-50 border border-slate-200 p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Sample Output Ready</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">0 Pending Challans</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <div class="bg-white p-3 rounded-xl border border-slate-100">
+              <span class="text-xs text-slate-400 block">Registration No.</span>
+              <span id="res-reg-no" class="font-display font-bold text-slate-900">BR 01 AB 2026</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-slate-100">
+              <span class="text-xs text-slate-400 block">RC & Tax Status</span>
+              <span class="font-bold text-emerald-600">ACTIVE & PAID</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-slate-100">
+              <span class="text-xs text-slate-400 block">Fuel / Norms</span>
+              <span class="font-semibold text-slate-800">PETROL / BHARAT STAGE VI</span>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-slate-100">
+              <span class="text-xs text-slate-400 block">Full Owner & Challan Pay</span>
+              <a href="#download-section" class="font-bold text-blue-700 hover:underline">Open in App →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       KEY FEATURES GRID
+  ====================================================================== -->
+  <section id="features" class="py-16 sm:py-24 bg-white border-y border-slate-200/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <span class="px-3 py-1 rounded-full bg-orange-100 text-orange-800 text-xs font-bold uppercase tracking-wider">All-In-One Citizen Suite</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-slate-900">Everything You Need on the Road</h2>
+        <p class="text-slate-600 text-sm sm:text-base">
+          Built to simplify transport compliance, emergency assistance, and vehicle documentation for every Indian citizen.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Feature 1 -->
+        <div class="p-7 rounded-3xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-blue-200 hover:shadow-xl transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="credit-card" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Virtual RC & Virtual DL</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Create encrypted digital copies of your Registration Certificate and Driving License valid across all traffic checkpoints nationwide.
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="p-7 rounded-3xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-orange-200 hover:shadow-xl transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="receipt" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Instant e-Challan Payment</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Search pending traffic violations by Vehicle Number or DL Number and settle e-Challans securely with instant digital receipts.
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="p-7 rounded-3xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-emerald-200 hover:shadow-xl transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="wifi-off" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Offline Document Access</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Once generated, your Virtual RC and Virtual DL stay cached securely inside the app so you can present them even with zero internet.
+          </p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="p-7 rounded-3xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-purple-200 hover:shadow-xl transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="search-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Second-Hand Vehicle Check</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Buying a used car or bike? Verify ownership serial number, hypothecation status, fitness validity, and blacklisting before paying.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="p-7 rounded-3xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-rose-200 hover:shadow-xl transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="siren" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Citizen Sentinel & SOS</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Report road accidents, traffic violations, or trigger emergency SOS alerts with live GPS coordinates to nearby authorities.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="p-7 rounded-3xl bg-slate-50 hover:bg-white border border-slate-200/80 hover:border-cyan-200 hover:shadow-xl transition-all group">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <i data-lucide="compass" class="w-6 h-6"></i>
+          </div>
+          <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Nearest RTO & Pollution Center</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Locate authorized PUCC testing centers, Regional Transport Offices (RTOs), and highway emergency services around your location.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       APP DOWNLOAD & HOSTING RELEASE CENTER
+  ====================================================================== -->
+  <section id="download-section" class="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="rounded-[2.5rem] hero-bg text-white p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+        
+        <div class="lg:col-span-7 space-y-5">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold uppercase tracking-wider">
+            <i data-lucide="download-cloud" class="w-4 h-4"></i>
+            <span>Direct App Distribution Hub</span>
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight">
+            Download & Install <span id="ui-download-app-name" class="text-amber-400">NextGen mParivahan</span>
+          </h2>
+          <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed">
+            Choose your preferred installation method below. Host your own custom APK build link directly or redirect users to official app stores.
+          </p>
+
+          <!-- Download Buttons Row -->
+          <div class="pt-3 flex flex-wrap gap-4">
+            <button onclick="triggerApkDownload()" class="px-7 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-500/25 flex items-center gap-3 transition-all active:scale-95">
+              <i data-lucide="download" class="w-5 h-5"></i>
+              <span>Direct APK Download (<span id="ui-dl-btn-size">28.4 MB</span>)</span>
+            </button>
+
+            <a id="ui-appstore-link" href="https://apps.apple.com/in/app/nextgen-mparivahan/id1450914131" target="_blank" rel="noopener noreferrer" class="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-semibold text-sm sm:text-base flex items-center gap-3 transition-all">
+              <i data-lucide="apple" class="w-5 h-5"></i>
+              <span>iOS App Store</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Build Technical Specs Card -->
+        <div class="lg:col-span-5 glass-dark rounded-3xl p-6 sm:p-8 space-y-4">
+          <div class="flex items-center justify-between border-b border-white/10 pb-4">
+            <h3 class="font-display font-bold text-lg">Package Release Info</h3>
+            <span class="px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 text-xs font-bold">Signed APK</span>
+          </div>
+
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between">
+              <span class="text-slate-400">App Version</span>
+              <span id="ui-spec-version" class="font-semibold text-white">v4.2.8 (Latest Build)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Package Size</span>
+              <span id="ui-spec-size" class="font-semibold text-white">28.4 MB</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Minimum OS</span>
+              <span id="ui-spec-os" class="font-semibold text-white">Android 8.0+</span>
+            </div>
+            <div class="flex justify-between items-center gap-2">
+              <span class="text-slate-400 shrink-0">Direct Host URL</span>
+              <span id="ui-spec-url" class="font-mono text-xs text-amber-300 truncate max-w-[190px]">https://example.com/...</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
+            <button onclick="copyDownloadLink()" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center justify-center gap-2 transition-all">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>Copy Direct APK Link</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FOOTER
+  ====================================================================== -->
+  <footer class="bg-slate-950 text-slate-400 pt-14 pb-10 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div class="space-y-2">
+          <div class="flex items-center gap-2.5 text-white">
+            <i data-lucide="car" class="w-6 h-6 text-blue-500"></i>
+            <span id="ui-footer-app-name" class="font-display font-bold text-xl">NextGen mParivahan</span>
+          </div>
+          <p class="text-xs text-slate-500 max-w-md">
+            Ready-to-host standalone web portal for mParivahan mobile application distribution and digital transport awareness.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-4 text-sm font-medium">
+          <a href="#virtual-docs" class="hover:text-white transition-colors">Virtual Wallet</a>
+          <a href="#features" class="hover:text-white transition-colors">Features</a>
+          <a href="#download-section" class="hover:text-white transition-colors">Download APK</a>
+          <button onclick="toggleAdminDrawer()" class="text-amber-400 hover:text-amber-300 transition-colors">Admin Customizer</button>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+        <p id="ui-footer-disclaimer" class="max-w-3xl text-center sm:text-left leading-relaxed">
+          Disclaimer: This hosting portal provides verified direct installation packages and information for digital transport services. Virtual RC and Virtual DL are legally valid under the IT Act 2000 & Motor Vehicles Act.
+        </p>
+        <span class="px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-slate-400 shrink-0">
+          Single-File Hosting Ready
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       FLOATING ADMIN CUSTOMIZER BUTTON
+  ====================================================================== -->
+  <button 
+    onclick="toggleAdminDrawer()" 
+    class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-2xl border border-slate-700 transition-all hover:scale-105 active:scale-95"
+    title="Edit App Details & Export HTML"
+  >
+    <i data-lucide="settings" class="w-5 h-5 text-amber-400 animate-spin" style="animation-duration: 10s;"></i>
+    <span>Edit App / Host Settings</span>
+  </button>
+
+  <!-- =====================================================================
+       LIVE ADMIN CUSTOMIZER DRAWER (NO-CODE EDITOR + HTML EXPORTER)
+  ====================================================================== -->
+  <div id="admin-drawer-backdrop" onclick="toggleAdminDrawer()" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+  
+  <aside id="admin-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-5 bg-slate-900 text-white flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="p-2 rounded-xl bg-amber-500/20 text-amber-400">
+          <i data-lucide="sliders" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h3 class="font-display font-bold text-base">App Hosting Customizer</h3>
+          <p class="text-[11px] text-slate-400">Edit details live & export ready-to-host HTML</p>
+        </div>
+      </div>
+      <button onclick="toggleAdminDrawer()" class="p-2 rounded-xl hover:bg-slate-800 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Form Body -->
+    <div class="p-6 overflow-y-auto flex-1 space-y-5 text-sm">
+      <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-100 text-blue-900 text-xs leading-relaxed">
+        <strong>How to Host & Change App:</strong> Update your APK link, app version, or name below. Changes apply immediately! Click <strong>"Export Ready index.html"</strong> at the bottom to download your customized website file for Vercel, Netlify, GitHub Pages, or cPanel.
+      </div>
+
+      <!-- App Name -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">App Name</label>
+        <input type="text" id="edit-appName" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none font-semibold" />
+      </div>
+
+      <!-- Direct APK Download URL -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Direct APK Download URL (Your Hosted App Link)</label>
+        <input type="url" id="edit-apkDownloadUrl" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none font-mono text-xs" />
+      </div>
+
+      <!-- Version & File Size -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">App Version</label>
+          <input type="text" id="edit-version" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">APK File Size</label>
+          <input type="text" id="edit-fileSize" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none" />
+        </div>
+      </div>
+
+      <!-- Play Store URL -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Google Play Store URL</label>
+        <input type="url" id="edit-playStoreUrl" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none font-mono text-xs" />
+      </div>
+
+      <!-- Hero Headline -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Hero Headline</label>
+        <input type="text" id="edit-heroHeadline" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none" />
+      </div>
+
+      <!-- Announcement Banner -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Top Announcement Banner</label>
+        <input type="text" id="edit-announcementText" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none" />
+      </div>
+
+      <!-- Primary Theme Color -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Primary Brand Color</label>
+        <div class="flex items-center gap-3">
+          <input type="color" id="edit-primaryColor" oninput="liveUpdateConfig()" class="h-10 w-16 rounded-lg border border-slate-300 cursor-pointer" />
+          <div class="flex gap-2">
+            <button type="button" onclick="setPresetColor('#1d4ed8')" class="w-7 h-7 rounded-full bg-blue-700 border-2 border-white shadow"></button>
+            <button type="button" onclick="setPresetColor('#047857')" class="w-7 h-7 rounded-full bg-emerald-700 border-2 border-white shadow"></button>
+            <button type="button" onclick="setPresetColor('#4338ca')" class="w-7 h-7 rounded-full bg-indigo-700 border-2 border-white shadow"></button>
+            <button type="button" onclick="setPresetColor('#b91c1c')" class="w-7 h-7 rounded-full bg-red-700 border-2 border-white shadow"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Disclaimer -->
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">Footer Disclaimer</label>
+        <textarea id="edit-footerDisclaimer" rows="3" oninput="liveUpdateConfig()" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:border-blue-600 focus:outline-none text-xs"></textarea>
+      </div>
+    </div>
+
+    <!-- Drawer Footer Actions -->
+    <div class="p-5 bg-slate-50 border-t border-slate-200 space-y-2.5">
+      <button onclick="exportStandaloneHtml()" class="w-full py-3.5 px-4 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95">
+        <i data-lucide="file-code" class="w-4 h-4"></i>
+        <span>Export Ready-to-Host index.html</span>
+      </button>
+      <button onclick="resetConfigToDefault()" class="w-full py-2 px-4 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-600 font-semibold text-xs transition-all">
+        Reset to Default Settings
+      </button>
+    </div>
+  </aside>
+
+  <!-- =====================================================================
+       CUSTOM TOAST NOTIFICATION (REPLACES ALERT)
+  ====================================================================== -->
+  <div id="toast-box" class="fixed top-20 right-5 z-50 transform translate-x-[150%] transition-transform duration-300 max-w-sm bg-slate-900 text-white px-5 py-4 rounded-2xl shadow-2xl border border-slate-700 flex items-start gap-3">
+    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+    <div>
+      <h4 id="toast-title" class="font-bold text-sm">Notification</h4>
+      <p id="toast-msg" class="text-xs text-slate-300 mt-0.5">Action completed.</p>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       APPLICATION JAVASCRIPT LOGIC
+  ====================================================================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    const DEFAULT_CONFIG = JSON.parse(JSON.stringify(window.APP_CONFIG));
+
+    // Load saved edits from localStorage if available
+    function initApp() {
+      try {
+        const saved = localStorage.getItem('mparivahan_portal_config');
+        if (saved) {
+          window.APP_CONFIG = { ...window.APP_CONFIG, ...JSON.parse(saved) };
+        }
+      } catch (e) {
+        console.warn('LocalStorage unavailable:', e);
+      }
+      populateAdminInputs();
+      renderConfigToDOM();
+    }
+
+    // Populate Admin Drawer inputs with current config
+    function populateAdminInputs() {
+      const cfg = window.APP_CONFIG;
+      document.getElementById('edit-appName').value = cfg.appName;
+      document.getElementById('edit-apkDownloadUrl').value = cfg.apkDownloadUrl;
+      document.getElementById('edit-version').value = cfg.version;
+      document.getElementById('edit-fileSize').value = cfg.fileSize;
+      document.getElementById('edit-playStoreUrl').value = cfg.playStoreUrl;
+      document.getElementById('edit-heroHeadline').value = cfg.heroHeadline;
+      document.getElementById('edit-announcementText').value = cfg.announcementText;
+      document.getElementById('edit-primaryColor').value = cfg.primaryColor;
+      document.getElementById('edit-footerDisclaimer').value = cfg.footerDisclaimer;
+    }
+
+    // Apply current APP_CONFIG values across the entire UI
+    function renderConfigToDOM() {
+      const cfg = window.APP_CONFIG;
+      
+      document.getElementById('page-title').textContent = `${cfg.appName} — Digital Transport Companion & App Portal`;
+      document.getElementById('ui-app-name').textContent = cfg.appName;
+      document.getElementById('ui-download-app-name').textContent = cfg.appName;
+      document.getElementById('ui-footer-app-name').textContent = cfg.appName;
+      document.getElementById('ui-badge-text').textContent = cfg.badgeText;
+      document.getElementById('ui-hero-headline').textContent = cfg.heroHeadline;
+      document.getElementById('ui-hero-subheadline').textContent = cfg.heroSubheadline;
+      document.getElementById('ui-announcement').textContent = cfg.announcementText;
+      
+      document.getElementById('ui-version').textContent = cfg.version;
+      document.getElementById('ui-spec-version').textContent = cfg.version;
+      document.getElementById('ui-file-size').textContent = cfg.fileSize;
+      document.getElementById('ui-dl-btn-size').textContent = cfg.fileSize;
+      document.getElementById('ui-spec-size').textContent = cfg.fileSize;
+      document.getElementById('ui-android-req').textContent = cfg.androidReq;
+      document.getElementById('ui-spec-os').textContent = cfg.androidReq;
+      document.getElementById('ui-spec-url').textContent = cfg.apkDownloadUrl;
+      
+      document.getElementById('ui-playstore-link').href = cfg.playStoreUrl;
+      document.getElementById('ui-appstore-link').href = cfg.appStoreUrl;
+      document.getElementById('ui-footer-disclaimer').textContent = cfg.footerDisclaimer;
+
+      // Apply Primary Brand Color dynamically
+      document.documentElement.style.setProperty('--brand-primary', cfg.primaryColor);
+      document.getElementById('brand-logo-box').style.backgroundColor = cfg.primaryColor;
+      document.getElementById('nav-cta-btn').style.backgroundColor = cfg.primaryColor;
+    }
+
+    // Live update handler when typing inside Admin Drawer
+    function liveUpdateConfig() {
+      window.APP_CONFIG.appName = document.getElementById('edit-appName').value;
+      window.APP_CONFIG.apkDownloadUrl = document.getElementById('edit-apkDownloadUrl').value;
+      window.APP_CONFIG.version = document.getElementById('edit-version').value;
+      window.APP_CONFIG.fileSize = document.getElementById('edit-fileSize').value;
+      window.APP_CONFIG.playStoreUrl = document.getElementById('edit-playStoreUrl').value;
+      window.APP_CONFIG.heroHeadline = document.getElementById('edit-heroHeadline').value;
+      window.APP_CONFIG.announcementText = document.getElementById('edit-announcementText').value;
+      window.APP_CONFIG.primaryColor = document.getElementById('edit-primaryColor').value;
+      window.APP_CONFIG.footerDisclaimer = document.getElementById('edit-footerDisclaimer').value;
+
+      renderConfigToDOM();
+
+      try {
+        localStorage.setItem('mparivahan_portal_config', JSON.stringify(window.APP_CONFIG));
+      } catch (e) {}
+    }
+
+    function setPresetColor(hex) {
+      document.getElementById('edit-primaryColor').value = hex;
+      liveUpdateConfig();
+    }
+
+    // Toggle Admin Drawer
+    function toggleAdminDrawer() {
+      const drawer = document.getElementById('admin-drawer');
+      const backdrop = document.getElementById('admin-drawer-backdrop');
+      const isClosed = drawer.classList.contains('translate-x-full');
+
+      if (isClosed) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    // Toggle Virtual RC vs Virtual DL Preview
+    function switchDocTab(type) {
+      const rcTab = document.getElementById('tab-rc');
+      const dlTab = document.getElementById('tab-dl');
+      const rcView = document.getElementById('doc-view-rc');
+      const dlView = document.getElementById('doc-view-dl');
+
+      if (type === 'rc') {
+        rcTab.className = 'px-4 py-1.5 rounded-lg text-xs font-bold bg-blue-700 text-white shadow-sm transition-all';
+        dlTab.className = 'px-4 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all';
+        rcView.classList.remove('hidden');
+        dlView.classList.add('hidden');
+      } else {
+        dlTab.className = 'px-4 py-1.5 rounded-lg text-xs font-bold bg-emerald-700 text-white shadow-sm transition-all';
+        rcTab.className = 'px-4 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition-all';
+        dlView.classList.remove('hidden');
+        rcView.classList.add('hidden');
+      }
+    }
+
+    // Simulated Vehicle Status Checker
+    function handleVehicleSearch(e) {
+      e.preventDefault();
+      const input = document.getElementById('vehicle-input').value.trim().toUpperCase();
+      if (!input) return;
+
+      // Format vehicle number cleanly
+      const formatted = input.replace(/[^A-Z0-9]/g, '');
+      document.getElementById('res-reg-no').textContent = formatted;
+      showToast('Vahan Lookup Complete', `Showing verified status preview for ${formatted}.`);
+    }
+
+    // Trigger APK Download
+    function triggerApkDownload() {
+      const url = window.APP_CONFIG.apkDownloadUrl;
+      showToast('Starting APK Download', `Fetching ${window.APP_CONFIG.appName} (${window.APP_CONFIG.version})...`);
+      
+      // Open download URL in new tab / trigger download
+      if (url && url !== 'https://example.com/downloads/mParivahan-v4.2.8.apk') {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      } else {
+        setTimeout(() => {
+          showToast('Demo Link Active', 'Tip: Click "Edit App / Host Settings" to set your real hosted APK link!');
+        }, 1200);
+      }
+    }
+
+    // Copy Direct Link using fallback execCommand
+    function copyDownloadLink() {
+      const tempInput = document.createElement('input');
+      tempInput.value = window.APP_CONFIG.apkDownloadUrl;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+      showToast('Link Copied!', 'Direct APK download URL copied to clipboard.');
+    }
+
+    // Export standalone HTML file with current edits baked in
+    function exportStandaloneHtml() {
+      // Close drawer first so exported HTML has clean closed state
+      const drawer = document.getElementById('admin-drawer');
+      const backdrop = document.getElementById('admin-drawer-backdrop');
+      drawer.classList.add('translate-x-full');
+      backdrop.classList.add('hidden');
+
+      // Update inline script tag so exported file preserves all user changes permanently
+      const configScript = document.getElementById('app-config-script');
+      configScript.textContent = `\n    window.APP_CONFIG = ${JSON.stringify(window.APP_CONFIG, null, 6)};\n  `;
+
+      const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([fullHtml], { type: 'text/html' });
+      const downloadUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(downloadUrl);
+
+      showToast('Exported index.html!', 'Your customized website file is downloaded and ready to host.');
+    }
+
+    // Reset settings
+    function resetConfigToDefault() {
+      window.APP_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+      localStorage.removeItem('mparivahan_portal_config');
+      populateAdminInputs();
+      renderConfigToDOM();
+      showToast('Settings Reset', 'Restored default mParivahan portal configuration.');
+    }
+
+    // Custom Toast Notification Helper
+    let toastTimer;
+    function showToast(title, msg) {
+      const toast = document.getElementById('toast-box');
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-msg').textContent = msg;
+      
+      toast.classList.remove('translate-x-[150%]');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-x-[150%]');
+      }, 3800);
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+  </html>
